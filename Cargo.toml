@@ -1,0 +1,12 @@
+[package]
+name = "shannon"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ndarray = "0.15"
+ndhistogram = "0.8"
+statrs = "0.15"
+
+[dev-dependencies]
+criterion = "0.5"

@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install stable Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Build on stable
+      run: cargo build --release
+
+    - name: Run tests on stable
+      run: cargo test --all
+
+  benchmarks:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install nightly Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        override: true
+
+    - name: Run native benches on nightly
+      run: cargo +nightly bench
