@@ -1,6 +1,6 @@
 # Shannon
 
-A Rust library for information theory and random matrix theory, inspired by Claude Shannon.
+A Rust library for information theory and random matrix theory.
 
 ---
 
