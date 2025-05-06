@@ -6,13 +6,13 @@ A Rust library for information theory and random matrix theory, inspired by Clau
 
 ## ✨ Features
 
-✅ Entropy and mutual information
-✅ Kullback-Leibler (KL) and Jensen-Shannon (JS) divergence
-✅ Random matrix theory:
-- Marchenko-Pastur law
-- Wigner semicircle law
-- Eigenvalue spacings
-- Random Wigner and Wishart matrix generation
+- Entropy and mutual information
+- Kullback-Leibler (KL) and Jensen-Shannon (JS) divergence
+- Random Matrix Theory:
+  - Marchenko-Pastur law
+  - Wigner semicircle law
+  - Eigenvalue spacings
+  - Random Wigner and Wishart matrix generation
 
 ---
 
