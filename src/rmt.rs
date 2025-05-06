@@ -1,3 +1,4 @@
+use rand_distr::{StandardNormal, Distribution};
 use nalgebra::DMatrix;
 
 pub fn marchenko_pastur_density(x: f64, q: f64, sigma: f64) -> f64 {
@@ -23,6 +24,32 @@ pub fn eigenvalue_spacings(matrix: &DMatrix<f64>) -> Vec<f64> {
     let mut eigvals: Vec<f64> = matrix.eigenvalues().unwrap().as_slice().to_vec();
     eigvals.sort_by(|a, b| a.partial_cmp(b).unwrap());
     eigvals.windows(2).map(|w| w[1] - w[0]).collect()
+}
+
+/// Generate a random symmetric (Wigner) matrix of size n x n.
+pub fn random_wigner_matrix(n: usize) -> DMatrix<f64> {
+    let mut m = DMatrix::<f64>::zeros(n, n);
+    let normal = StandardNormal;
+    for i in 0..n {
+        for j in i..n {
+            let val: f64 = normal.sample(&mut rand::thread_rng());
+            m[(i, j)] = val;
+            m[(j, i)] = val;
+        }
+    }
+    m
+}
+
+/// Generate a random Wishart (sample covariance) matrix of size p x p.
+pub fn random_wishart_matrix(p: usize, n: usize) -> DMatrix<f64> {
+    let normal = StandardNormal;
+    let mut data = DMatrix::<f64>::zeros(n, p);
+    for i in 0..n {
+        for j in 0..p {
+            data[(i, j)] = normal.sample(&mut rand::thread_rng());
+        }
+    }
+    &data.transpose() * &data
 }
 
 #[cfg(test)]

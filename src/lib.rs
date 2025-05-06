@@ -2,6 +2,8 @@ pub mod entropy;
 pub mod divergence;
 pub mod rmt;
 
+use nalgebra::DMatrix;
+
 /// Main public API for Shannon crate.
 pub struct Shannon;
 
@@ -34,6 +36,14 @@ impl Shannon {
     /// Compute eigenvalue spacings.
     pub fn eigen_spacings(&self, matrix: &nalgebra::DMatrix<f64>) -> Vec<f64> {
         rmt::eigenvalue_spacings(matrix)
+    }
+
+    pub fn random_wigner(&self, n: usize) -> DMatrix<f64> {
+        rmt::random_wigner_matrix(n)
+    }
+
+    pub fn random_wishart(&self, p: usize, n: usize) -> DMatrix<f64> {
+        rmt::random_wishart_matrix(p, n)
     }
 }
 
@@ -79,5 +89,13 @@ mod tests {
         assert!(mp >= 0.0);
         assert!(ws >= 0.0);
         assert_eq!(spacings.len(), 2);
+    }
+    #[test]
+    fn test_random_matrices() {
+        let s = Shannon::new();
+        let wigner = s.random_wigner(5);
+        let wishart = s.random_wishart(3, 5);
+        assert_eq!(wigner.shape(), (5, 5));
+        assert_eq!(wishart.shape(), (3, 3));
     }
 }

@@ -8,6 +8,5 @@ nalgebra = "0.33.2"
 ndarray = "0.15"
 ndhistogram = "0.8"
 statrs = "0.15"
-
-[dev-dependencies]
-criterion = "0.5"
+rand = "0.8"
+rand_distr = "0.4"
